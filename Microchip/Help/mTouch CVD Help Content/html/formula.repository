@@ -1,3 +1,0 @@
-\form#0:\[ Interpolated Press Position = (256 \cdot n) \pm \frac{Delta_{n}}{Delta_{n} + Delta_{n \pm 1}} \]
-\form#1:\[ Scaled Interpolated Press Position = \frac{InterpolatedPressPosition}{n} \]
-\form#2:\[ Threshold_{Press} = min + 0.75 (max - min) \]

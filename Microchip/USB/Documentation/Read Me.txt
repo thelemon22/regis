@@ -1,3 +1,0 @@
-The release notes, migration notes, and other important stack documentation has been moved to the following location:
-
-<install directory>\Microchip\Help\MCHPFSUSB Library Help.chm
