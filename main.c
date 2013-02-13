@@ -47,10 +47,19 @@
 #if defined(DSPIC33E_USB_STARTER_KIT)
     _FOSCSEL(FNOSC_FRC);
     _FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_XT);
-    _FWDT(FWDTEN_OFF);
+    _FWDT(PLLKEN_ON & FWDTEN_OFF);
 #else
     #error No hardware board defined, see "HardwareProfile.h" and __FILE__
 #endif
+
+    //_FOSCSEL(FNOSC_FRC & IESO_OFF);		// FRC Oscillator
+//_FOSC(FCKSM_CSECMD & OSCIOFNC_OFF  & POSCMD_XT);
+								// Clock Switching is enabled and Fail Safe Clock Monitor is disabled
+								// OSC2 Pin Function: OSC2 is Clock Output
+								// Primary Oscillator Mode: Disabled
+
+
+//_FWDT(PLLKEN_ON & FWDTEN_OFF)
 
 /** I N C L U D E S **********************************************************/
 
