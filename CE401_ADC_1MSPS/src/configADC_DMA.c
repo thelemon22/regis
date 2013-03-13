@@ -75,10 +75,10 @@
 //_FWDT(PLLKEN_ON & FWDTEN_OFF);              // Watchdog Timer Enabled/disabled by user software
 								// (LPRC can be disabled by clearing SWDTEN bit in RCON register
 
-_FICD(ICS_PGD2 & JTAGEN_OFF);	// JTAG off & programming pair 2
+//_FICD(ICS_PGD2 & JTAGEN_OFF);	// JTAG off & programming pair 2
 
 
-int configADC_DMA (void)
+int initADCDMA (void)
 {
 
 // Configure Oscillator to operate the device at 40Mhz
@@ -101,12 +101,9 @@ int configADC_DMA (void)
 
 // Peripheral Initialisation
 	initDma0();					// Initialise the DMA controller to buffer ADC data in conversion order
-   	initAdc1();             	// Initialize the A/D converter to convert Channel 5
-
-
-        while (1);              //Loop Endlessly - Execution is interrupt driven
+   	initAdc1();             	// Initialize the A/D converter to convert Channel 5              //Loop Endlessly - Execution is interrupt driven
                                 //from this point on.
-        return 0;
+        return 1;
 }
 
 

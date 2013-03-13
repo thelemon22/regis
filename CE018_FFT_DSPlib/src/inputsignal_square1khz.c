@@ -1,11 +1,11 @@
 /**********************************************************************
-* © 2005 Microchip Technology Inc.
+* ï¿½ 2005 Microchip Technology Inc.
 *
 * FileName:        inputsignal_square1khz.c
 * Dependencies:    Header (.h) files if applicable, see below
 * Processor:       dsPIC30Fxxxx
-* Compiler:        MPLAB® C30 v3.00 or higher
-* IDE:             MPLAB® IDE v7.52 or later
+* Compiler:        MPLABï¿½ C30 v3.00 or higher
+* IDE:             MPLABï¿½ IDE v7.52 or later
 * Dev. Board Used: dsPICDEM 1.1 Development Board
 * Hardware Dependencies: None
 *
@@ -53,7 +53,7 @@
 #include <dsp.h>
 #include "fft.h"
 
-fractcomplex sigCmpx[FFT_BLOCK_LENGTH] __attribute__ ((section (".ydata, data, ymemory"), aligned (FFT_BLOCK_LENGTH * 2 *2))) =
+fractcomplex sigCmpx[FFT_BLOCK_LENGTH] __attribute__((far, aligned (FFT_BLOCK_LENGTH * 2 *2))) =
 {
 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF,
 0x8001, 0x8001, 0x8001, 0x8001, 0x8001,

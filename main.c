@@ -48,6 +48,7 @@
     _FOSCSEL(FNOSC_FRC);
     _FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_XT);
     _FWDT(PLLKEN_ON & FWDTEN_OFF);
+    _FICD(ICS_PGD1 & JTAGEN_OFF)
 #else
     #error No hardware board defined, see "HardwareProfile.h" and __FILE__
 #endif
@@ -140,7 +141,7 @@ void UserInit(void);
 #if defined(__18CXX)
 void main(void)
 #else
-int main(void)
+int notmain(void)
 #endif
 {   
     InitializeSystem();

@@ -62,7 +62,7 @@
 
 /* Extern definitions */
 extern fractcomplex sigCmpx[FFT_BLOCK_LENGTH] 		/* Typically, the input signal to an FFT  */
-__attribute__ ((section (".ydata, data, ymemory"), 	/* routine is a complex array containing samples */
+__attribute__ ((far, 	/* routine is a complex array containing samples */
 aligned (FFT_BLOCK_LENGTH * 2 *2)));      		/* of an input signal. For this example, */
 							/* we will provide the input signal in an */
 							/* array declared in Y-data space. */
