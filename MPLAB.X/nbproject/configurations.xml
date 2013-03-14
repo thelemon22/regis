@@ -32,22 +32,24 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="ADC" projectFiles="true">
-        <itemPath>../CE401_ADC_1MSPS/src/adcDrv2.c</itemPath>
-        <itemPath>../CE401_ADC_1MSPS/src/configADC_DMA.c</itemPath>
-        <itemPath>../CE401_ADC_1MSPS/src/traps.c</itemPath>
+        <itemPath>radc.c</itemPath>
+        <itemPath>radc.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="FFT" projectFiles="true">
-        <itemPath>../CE018_FFT_DSPlib/src/inputsignal_square1khz.c</itemPath>
+        <itemPath>rfft.c</itemPath>
         <itemPath>../CE018_FFT_DSPlib/src/twiddleFactors.c</itemPath>
-        <itemPath>../CE018_FFT_DSPlib/src/FFTExample.c</itemPath>
+        <itemPath>rfft.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="USB" projectFiles="true">
         <itemPath>../Microchip/USB/usb_device.c</itemPath>
         <itemPath>../Microchip/USB/CDC Device Driver/usb_function_cdc.c</itemPath>
         <itemPath>../Microchip/USB/usb_hal_pic24.c</itemPath>
+        <itemPath>rusb.c</itemPath>
+        <itemPath>rusb.h</itemPath>
+        <itemPath>../usb_descriptors.c</itemPath>
       </logicalFolder>
-      <itemPath>../main.c</itemPath>
-      <itemPath>../usb_descriptors.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>main.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -88,7 +90,7 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C30>
-        <property key="code-model" value="large-code"/>
+        <property key="code-model" value="default"/>
         <property key="const-model" value="const-in-data"/>
         <property key="data-model" value="large-data"/>
         <property key="enable-all-warnings" value="true"/>
@@ -123,7 +125,7 @@
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
-        <property key="scalar-model" value="large-scalar"/>
+        <property key="scalar-model" value="default"/>
         <property key="use-cci" value="false"/>
       </C30>
       <C30-AS>

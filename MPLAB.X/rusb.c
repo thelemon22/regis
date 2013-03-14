@@ -1,8 +1,8 @@
 /********************************************************************
  FileName:      main.c
  Dependencies:  See INCLUDES section
- Processor:     
- Hardware:      
+ Processor:
+ Hardware:
  Complier:      XC16
  Company:       Microchip Technology, Inc.
 
@@ -85,14 +85,38 @@ volatile BOOL buttonPressed;
 volatile BYTE buttonCount;
 
 /** P R I V A T E  P R O T O T Y P E S ***************************************/
-static void InitializeSystem(void);
-void ProcessIO(void);
+
 void USBDeviceTasks(void);
 void YourHighPriorityISRCode();
 void YourLowPriorityISRCode();
 void USBCBSendResume(void);
 void BlinkUSBStatus(void);
 void UserInit(void);
+
+void ProcessIO(void)
+{
+    BYTE numBytesRead;
+
+    //Blink the LEDs according to the USB device status
+    //BlinkUSBStatus();
+    // User Application USB tasks
+    if((USBDeviceState < CONFIGURED_STATE)||(USBSuspendControl==1)) return;
+
+    putrsUSBUSART("Button Pressed -- \r\n");
+
+    if(USBUSARTIsTxTrfReady())
+    {
+        numBytesRead = getsUSBUSART(USB_Out_Buffer,64);
+        if(numBytesRead != 0)
+        {
+            putUSBUSART(USB_In_Buffer,numBytesRead);
+        }
+    }
+
+    CDCTxService();
+}		//end ProcessIO
+
+
 
 /** VECTOR REMAPPING ***********************************************/
 #if defined(__C30__) || defined __XC16__
@@ -103,15 +127,15 @@ void UserInit(void);
          *	It is necessary to define jump table as a function because C30 will
          *	not store 24-bit wide values in program memory as variables.
          *
-         *	This function should be stored at an address where the goto instructions 
+         *	This function should be stored at an address where the goto instructions
          *	line up with the remapped vectors from the bootloader's linker script.
-         *  
+         *
          *  For more information about how to remap the interrupt vectors,
          *  please refer to AN1157.  An example is provided below for the T2
          *  interrupt with a bootloader ending at address 0x1400
          */
 //        void __attribute__ ((address(0x1404))) ISRTable(){
-//        
+//
 //        	asm("reset"); //reset instruction to prevent runaway code
 //        	asm("goto %0"::"i"(&_T2Interrupt));  //T2Interrupt's address
 //        }
@@ -123,281 +147,6 @@ void UserInit(void);
     #pragma code
 #endif
 
-/******************************************************************************
- * Function:        void main(void)
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        Main program entry point.
- *
- * Note:            None
- *****************************************************************************/
-#if defined(__18CXX)
-void main(void)
-#else
-int notmain(void)
-#endif
-{   
-    InitializeSystem();
-
-    while(1)
-    {
-        #if defined(USB_INTERRUPT)
-            if(USB_BUS_SENSE && (USBGetDeviceState() == DETACHED_STATE))
-            {
-                USBDeviceAttach();
-            }
-        #endif
-
-        #if defined(USB_POLLING)
-		// Check bus status and service USB interrupts.
-        USBDeviceTasks();
-        #endif
-    				  
-
-        // Application-specific tasks.
-        // Application related code may be added here, or in the ProcessIO() function.
-        ProcessIO();        
-    }
-}
-
-
-/********************************************************************
- * Function:        static void InitializeSystem(void)
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        InitializeSystem is a centralize initialization
- *                  routine. All required USB initialization routines
- *                  are called from here.
- *
- *                  User application initialization routine should
- *                  also be called from here.                  
- *
- * Note:            None
- *******************************************************************/
-static void InitializeSystem(void)
-{
-    #if defined(__C30__) || defined __XC16__
-        #if defined(__dsPIC33EP512MU810__) || defined (__PIC24EP512GU810__)
-        	ANSELA = 0x0000;
-    		ANSELB = 0x0000;
-    		ANSELC = 0x0000;
-    		ANSELD = 0x0000;
-    		ANSELE = 0x0000;
-    		ANSELG = 0x0000;
-            
-            // The dsPIC33EP512MU810 features Peripheral Pin
-            // select. The following statements map UART2 to 
-            // device pins which would connect to the the 
-            // RX232 transciever on the Explorer 16 board.
-
-             RPINR19 = 0;
-             RPINR19 = 0x64;
-             RPOR9bits.RP101R = 0x3;
-
-        #else
-            AD1PCFGL = 0xFFFF;
-        #endif
-    #endif
-
-    #if defined(__dsPIC33EP512MU810__) || defined (__PIC24EP512GU810__)
-
-    // Configure the device PLL to obtain 60 MIPS operation. The crystal
-    // frequency is 8MHz. Divide 8MHz by 2, multiply by 60 and divide by
-    // 2. This results in Fosc of 120MHz. The CPU clock frequency is
-    // Fcy = Fosc/2 = 60MHz. Wait for the Primary PLL to lock and then
-    // configure the auxilliary PLL to provide 48MHz needed for USB 
-    // Operation.
-
-	PLLFBD = 38;				/* M  = 60	*/
-	CLKDIVbits.PLLPOST = 0;		/* N1 = 2	*/
-	CLKDIVbits.PLLPRE = 0;		/* N2 = 2	*/
-	OSCTUN = 0;			
-
-    /*	Initiate Clock Switch to Primary
-     *	Oscillator with PLL (NOSC= 0x3)*/
-	
-    __builtin_write_OSCCONH(0x03);		
-	__builtin_write_OSCCONL(0x01);
-	
-	
-	while (OSCCONbits.COSC != 0x3);       
-
-    // Configuring the auxiliary PLL, since the primary
-    // oscillator provides the source clock to the auxiliary
-    // PLL, the auxiliary oscillator is disabled. Note that
-    // the AUX PLL is enabled. The input 8MHz clock is divided
-    // by 2, multiplied by 24 and then divided by 2. Wait till 
-    // the AUX PLL locks.
-
-    ACLKCON3 = 0x24C1;   
-    ACLKDIV3 = 0x7;
-    
-    
-    ACLKCON3bits.ENAPLL = 1;
-    while(ACLKCON3bits.APLLCK != 1); 
-
-    #endif
-
-//	The USB specifications require that USB peripheral devices must never source
-//	current onto the Vbus pin.  Additionally, USB peripherals should not source
-//	current on D+ or D- when the host/hub is not actively powering the Vbus line.
-//	When designing a self powered (as opposed to bus powered) USB peripheral
-//	device, the firmware should make sure not to turn on the USB module and D+
-//	or D- pull up resistor unless Vbus is actively powered.  Therefore, the
-//	firmware needs some means to detect when Vbus is being powered by the host.
-//	A 5V tolerant I/O pin can be connected to Vbus (through a resistor), and
-// 	can be used to detect when Vbus is high (host actively powering), or low
-//	(host is shut down or otherwise not supplying power).  The USB firmware
-// 	can then periodically poll this I/O pin to know when it is okay to turn on
-//	the USB module/D+/D- pull up resistor.  When designing a purely bus powered
-//	peripheral device, it is not possible to source current on D+ or D- when the
-//	host is not actively providing power on Vbus. Therefore, implementing this
-//	bus sense feature is optional.  This firmware can be made to use this bus
-//	sense feature by making sure "USE_USB_BUS_SENSE_IO" has been defined in the
-//	HardwareProfile.h file.    
-    #if defined(USE_USB_BUS_SENSE_IO)
-    tris_usb_bus_sense = INPUT_PIN; // See HardwareProfile.h
-    #endif
-    
-//	If the host PC sends a GetStatus (device) request, the firmware must respond
-//	and let the host know if the USB peripheral device is currently bus powered
-//	or self powered.  See chapter 9 in the official USB specifications for details
-//	regarding this request.  If the peripheral device is capable of being both
-//	self and bus powered, it should not return a hard coded value for this request.
-//	Instead, firmware should check if it is currently self or bus powered, and
-//	respond accordingly.  If the hardware has been configured like demonstrated
-//	on the PICDEM FS USB Demo Board, an I/O pin can be polled to determine the
-//	currently selected power source.  On the PICDEM FS USB Demo Board, "RA2" 
-//	is used for	this purpose.  If using this feature, make sure "USE_SELF_POWER_SENSE_IO"
-//	has been defined in HardwareProfile - (platform).h, and that an appropriate I/O pin 
-//  has been mapped	to it.
-    #if defined(USE_SELF_POWER_SENSE_IO)
-    tris_self_power = INPUT_PIN;	// See HardwareProfile.h
-    #endif
-    
-    UserInit();
-
-    USBDeviceInit();	//usb_device.c.  Initializes USB module SFRs and firmware
-    					//variables to known states.
-}//end InitializeSystem
-
-
-
-/******************************************************************************
- * Function:        void UserInit(void)
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        This routine should take care of all of the demo code
- *                  initialization that is required.
- *
- * Note:            
- *
- *****************************************************************************/
-void UserInit(void)
-{
-    //Initialize all of the debouncing variables
-    buttonCount = 0;
-    buttonPressed = FALSE;
-    stringPrinted = TRUE;
-
-    //Initialize all of the LED pins
-    mInitAllLEDs();
-
-    //Initialize the pushbuttons
-    mInitAllSwitches();
-}//end UserInit
-
-/********************************************************************
- * Function:        void ProcessIO(void)
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        This function is a place holder for other user
- *                  routines. It is a mixture of both USB and
- *                  non-USB tasks.
- *
- * Note:            None
- *******************************************************************/
-void ProcessIO(void)
-{   
-    BYTE numBytesRead;
-
-    //Blink the LEDs according to the USB device status
-    BlinkUSBStatus();
-    // User Application USB tasks
-    if((USBDeviceState < CONFIGURED_STATE)||(USBSuspendControl==1)) return;
-
-    if(buttonPressed)
-    {
-        if(stringPrinted == FALSE)
-        {
-            if(mUSBUSARTIsTxTrfReady())
-            {
-                putrsUSBUSART("Button Pressed -- \r\n");
-                stringPrinted = TRUE;
-            }
-        }
-    }
-    else
-    {
-        stringPrinted = FALSE;
-    }
-
-    if(USBUSARTIsTxTrfReady())
-    {
-		numBytesRead = getsUSBUSART(USB_Out_Buffer,64);
-		if(numBytesRead != 0)
-		{
-			BYTE i;
-	        
-			for(i=0;i<numBytesRead;i++)
-			{
-				switch(USB_Out_Buffer[i])
-				{
-					case 0x0A:
-					case 0x0D:
-						USB_In_Buffer[i] = USB_Out_Buffer[i];
-						break;
-					default:
-						USB_In_Buffer[i] = USB_Out_Buffer[i] + 1;
-						break;
-				}
-
-			}
-
-			putUSBUSART(USB_In_Buffer,numBytesRead);
-		}
-	}
-
-    CDCTxService();
-}		//end ProcessIO
 
 /********************************************************************
  * Function:        void BlinkUSBStatus(void)
@@ -410,7 +159,7 @@ void ProcessIO(void)
  *
  * Side Effects:    None
  *
- * Overview:        BlinkUSBStatus turns on and off LEDs 
+ * Overview:        BlinkUSBStatus turns on and off LEDs
  *                  corresponding to the USB device state.
  *
  * Note:            mLED macros can be found in HardwareProfile.h
@@ -420,7 +169,7 @@ void ProcessIO(void)
 void BlinkUSBStatus(void)
 {
     static WORD led_count=0;
-    
+
     if(led_count == 0)led_count = 10000U;
     led_count--;
 
@@ -511,7 +260,7 @@ void BlinkUSBStatus(void)
 // additional comments near the function.
 
 // Note *: The "usb_20.pdf" specs indicate 500uA or 2.5mA, depending upon device classification. However,
-// the USB-IF has officially issued an ECN (engineering change notice) changing this to 2.5mA for all 
+// the USB-IF has officially issued an ECN (engineering change notice) changing this to 2.5mA for all
 // devices.  Make sure to re-download the latest specifications to get all of the newest ECNs.
 
 /******************************************************************************
@@ -534,7 +283,7 @@ void USBCBSuspend(void)
 	//Example power saving code.  Insert appropriate code here for the desired
 	//application behavior.  If the microcontroller will be put to sleep, a
 	//process similar to that shown below may be used:
-	
+
 	//ConfigureIOPinsForLowPower();
 	//SaveStateOfAllInterruptEnableBits();
 	//DisableAllInterruptEnableBits();
@@ -543,10 +292,10 @@ void USBCBSuspend(void)
 	//RestoreStateOfAllPreviouslySavedInterruptEnableBits();	//Preferrably, this should be done in the USBCBWakeFromSuspend() function instead.
 	//RestoreIOPinsToNormal();									//Preferrably, this should be done in the USBCBWakeFromSuspend() function instead.
 
-	//IMPORTANT NOTE: Do not clear the USBActivityIF (ACTVIF) bit here.  This bit is 
-	//cleared inside the usb_device.c file.  Clearing USBActivityIF here will cause 
-	//things to not work as intended.	
-	
+	//IMPORTANT NOTE: Do not clear the USBActivityIF (ACTVIF) bit here.  This bit is
+	//cleared inside the usb_device.c file.  Clearing USBActivityIF here will cause
+	//things to not work as intended.
+
 
     #if defined(__C30__) || defined __XC16__
         USBSleepOnSuspend();
@@ -568,8 +317,8 @@ void USBCBSuspend(void)
  *					suspend mode (by "sending" 3+ms of idle).  Once in suspend
  *					mode, the host may wake the device back up by sending non-
  *					idle state signalling.
- *					
- *					This call back is invoked when a wakeup from USB suspend 
+ *
+ *					This call back is invoked when a wakeup from USB suspend
  *					is detected.
  *
  * Note:            None
@@ -579,12 +328,12 @@ void USBCBWakeFromSuspend(void)
 	// If clock switching or other power savings measures were taken when
 	// executing the USBCBSuspend() function, now would be a good time to
 	// switch back to normal full power run mode conditions.  The host allows
-	// 10+ milliseconds of wakeup time, after which the device must be 
+	// 10+ milliseconds of wakeup time, after which the device must be
 	// fully back to normal, and capable of receiving and processing USB
 	// packets.  In order to do this, the USB module must receive proper
 	// clocking (IE: 48MHz clock must be available to SIE for full speed USB
-	// operation).  
-	// Make sure the selected oscillator settings are consistent with USB 
+	// operation).
+	// Make sure the selected oscillator settings are consistent with USB
     // operation before returning from this function.
 }
 
@@ -670,7 +419,7 @@ void USBCBErrorHandler(void)
 	// data loss occurs.  The system will typically recover
 	// automatically, without the need for application firmware
 	// intervention.
-	
+
 	// Nevertheless, this callback function is provided, such as
 	// for debugging purposes.
 }
@@ -697,9 +446,9 @@ void USBCBErrorHandler(void)
  *					that is being implemented.  For example, a HID
  *					class device needs to be able to respond to
  *					"GET REPORT" type of requests.  This
- *					is not a standard USB chapter 9 request, and 
+ *					is not a standard USB chapter 9 request, and
  *					therefore not handled by usb_device.c.  Instead
- *					this request should be handled by class specific 
+ *					this request should be handled by class specific
  *					firmware, such as that contained in usb_function_hid.c.
  *
  * Note:            None
@@ -748,9 +497,9 @@ void USBCBStdSetDscHandler(void)
  *
  * Overview:        This function is called when the device becomes
  *                  initialized, which occurs after the host sends a
- * 					SET_CONFIGURATION (wValue not = 0) request.  This 
- *					callback function should initialize the endpoints 
- *					for the device's usage according to the current 
+ * 					SET_CONFIGURATION (wValue not = 0) request.  This
+ *					callback function should initialize the endpoints
+ *					for the device's usage according to the current
  *					configuration.
  *
  * Note:            None
@@ -781,44 +530,44 @@ void USBCBInitEP(void)
  *					button on a remote control, it is nice that the
  *					IR receiver can detect this signalling, and then
  *					send a USB "command" to the PC to wake up.
- *					
+ *
  *					The USBCBSendResume() "callback" function is used
- *					to send this special USB signalling which wakes 
+ *					to send this special USB signalling which wakes
  *					up the PC.  This function may be called by
  *					application firmware to wake up the PC.  This
  *					function will only be able to wake up the host if
  *                  all of the below are true:
- *					
+ *
  *					1.  The USB driver used on the host PC supports
  *						the remote wakeup capability.
  *					2.  The USB configuration descriptor indicates
  *						the device is remote wakeup capable in the
  *						bmAttributes field.
  *					3.  The USB host PC is currently sleeping,
- *						and has previously sent your device a SET 
+ *						and has previously sent your device a SET
  *						FEATURE setup packet which "armed" the
- *						remote wakeup capability.   
+ *						remote wakeup capability.
  *
  *                  If the host has not armed the device to perform remote wakeup,
  *                  then this function will return without actually performing a
- *                  remote wakeup sequence.  This is the required behavior, 
- *                  as a USB device that has not been armed to perform remote 
+ *                  remote wakeup sequence.  This is the required behavior,
+ *                  as a USB device that has not been armed to perform remote
  *                  wakeup must not drive remote wakeup signalling onto the bus;
  *                  doing so will cause USB compliance testing failure.
- *                  
+ *
  *					This callback should send a RESUME signal that
  *                  has the period of 1-15ms.
  *
  * Note:            This function does nothing and returns quickly, if the USB
- *                  bus and host are not in a suspended condition, or are 
+ *                  bus and host are not in a suspended condition, or are
  *                  otherwise not in a remote wakeup ready state.  Therefore, it
- *                  is safe to optionally call this function regularly, ex: 
+ *                  is safe to optionally call this function regularly, ex:
  *                  anytime application stimulus occurs, as the function will
  *                  have no effect, until the bus really is in a state ready
- *                  to accept remote wakeup. 
+ *                  to accept remote wakeup.
  *
  *                  When this function executes, it may perform clock switching,
- *                  depending upon the application specific code in 
+ *                  depending upon the application specific code in
  *                  USBCBWakeFromSuspend().  This is needed, since the USB
  *                  bus will no longer be suspended by the time this function
  *                  returns.  Therefore, the USB module will need to be ready
@@ -851,42 +600,42 @@ void USBCBInitEP(void)
 void USBCBSendResume(void)
 {
     static WORD delay_count;
-    
+
     //First verify that the host has armed us to perform remote wakeup.
     //It does this by sending a SET_FEATURE request to enable remote wakeup,
     //usually just before the host goes to standby mode (note: it will only
     //send this SET_FEATURE request if the configuration descriptor declares
     //the device as remote wakeup capable, AND, if the feature is enabled
-    //on the host (ex: on Windows based hosts, in the device manager 
-    //properties page for the USB device, power management tab, the 
-    //"Allow this device to bring the computer out of standby." checkbox 
+    //on the host (ex: on Windows based hosts, in the device manager
+    //properties page for the USB device, power management tab, the
+    //"Allow this device to bring the computer out of standby." checkbox
     //should be checked).
-    if(USBGetRemoteWakeupStatus() == TRUE) 
+    if(USBGetRemoteWakeupStatus() == TRUE)
     {
         //Verify that the USB bus is in fact suspended, before we send
         //remote wakeup signalling.
         if(USBIsBusSuspended() == TRUE)
         {
             USBMaskInterrupts();
-            
+
             //Clock switch to settings consistent with normal USB operation.
             USBCBWakeFromSuspend();
-            USBSuspendControl = 0; 
-            USBBusIsSuspended = FALSE;  //So we don't execute this code again, 
+            USBSuspendControl = 0;
+            USBBusIsSuspended = FALSE;  //So we don't execute this code again,
                                         //until a new suspend condition is detected.
 
             //Section 7.1.7.7 of the USB 2.0 specifications indicates a USB
             //device must continuously see 5ms+ of idle on the bus, before it sends
             //remote wakeup signalling.  One way to be certain that this parameter
-            //gets met, is to add a 2ms+ blocking delay here (2ms plus at 
+            //gets met, is to add a 2ms+ blocking delay here (2ms plus at
             //least 3ms from bus idle to USBIsBusSuspended() == TRUE, yeilds
             //5ms+ total delay since start of idle).
-            delay_count = 3600U;        
+            delay_count = 3600U;
             do
             {
                 delay_count--;
             }while(delay_count);
-            
+
             //Now drive the resume K-state signalling onto the USB bus.
             USBResumeControl = 1;       // Start RESUME signaling
             delay_count = 1800U;        // Set RESUME line for 1-13 ms
@@ -919,7 +668,7 @@ void USBCBSendResume(void)
  *                  thus the various class examples a way to get
  *                  data that is received via the control endpoint.
  *                  This function needs to be used in conjunction
- *                  with the USBCBCheckOtherReq() function since 
+ *                  with the USBCBCheckOtherReq() function since
  *                  the USBCBCheckOtherReq() function is the apps
  *                  method for getting the initial control transfer
  *                  before the data arrives.
@@ -969,7 +718,7 @@ BOOL USER_USB_CALLBACK_EVENT_HANDLER(int event, void *pdata, WORD size)
         case EVENT_RESUME:
             USBCBWakeFromSuspend();
             break;
-        case EVENT_CONFIGURED: 
+        case EVENT_CONFIGURED:
             USBCBInitEP();
             break;
         case EVENT_SET_DESCRIPTOR:
@@ -984,19 +733,17 @@ BOOL USER_USB_CALLBACK_EVENT_HANDLER(int event, void *pdata, WORD size)
         case EVENT_TRANSFER_TERMINATED:
             //Add application specific callback task or callback function here if desired.
             //The EVENT_TRANSFER_TERMINATED event occurs when the host performs a CLEAR
-            //FEATURE (endpoint halt) request on an application endpoint which was 
+            //FEATURE (endpoint halt) request on an application endpoint which was
             //previously armed (UOWN was = 1).  Here would be a good place to:
-            //1.  Determine which endpoint the transaction that just got terminated was 
+            //1.  Determine which endpoint the transaction that just got terminated was
             //      on, by checking the handle value in the *pdata.
-            //2.  Re-arm the endpoint if desired (typically would be the case for OUT 
+            //2.  Re-arm the endpoint if desired (typically would be the case for OUT
             //      endpoints).
             break;
         default:
             break;
-    }      
-    return TRUE; 
+    }
+    return TRUE;
 }
 
-
 /** EOF main.c *************************************************/
-

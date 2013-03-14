@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/75569845/adcDrv2.o ${OBJECTDIR}/_ext/75569845/configADC_DMA.o ${OBJECTDIR}/_ext/75569845/traps.o ${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o ${OBJECTDIR}/_ext/318502877/FFTExample.o ${OBJECTDIR}/_ext/343710134/usb_device.o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/75569845/adcDrv2.o.d ${OBJECTDIR}/_ext/75569845/configADC_DMA.o.d ${OBJECTDIR}/_ext/75569845/traps.o.d ${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o.d ${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d ${OBJECTDIR}/_ext/318502877/FFTExample.o.d ${OBJECTDIR}/_ext/343710134/usb_device.o.d ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d ${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/343710134/usb_device.o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o ${OBJECTDIR}/main.o ${OBJECTDIR}/radc.o ${OBJECTDIR}/rusb.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/rfft.o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/343710134/usb_device.o.d ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/radc.o.d ${OBJECTDIR}/rusb.o.d ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d ${OBJECTDIR}/rfft.o.d ${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/75569845/adcDrv2.o ${OBJECTDIR}/_ext/75569845/configADC_DMA.o ${OBJECTDIR}/_ext/75569845/traps.o ${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o ${OBJECTDIR}/_ext/318502877/FFTExample.o ${OBJECTDIR}/_ext/343710134/usb_device.o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o
+OBJECTFILES=${OBJECTDIR}/_ext/343710134/usb_device.o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o ${OBJECTDIR}/main.o ${OBJECTDIR}/radc.o ${OBJECTDIR}/rusb.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/rfft.o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o
 
 
 CFLAGS=
@@ -73,138 +73,114 @@ MP_LINKER_FILE_OPTION=,--script=p33EP512MU810.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/75569845/adcDrv2.o: ../CE401_ADC_1MSPS/src/adcDrv2.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/75569845 
-	@${RM} ${OBJECTDIR}/_ext/75569845/adcDrv2.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE401_ADC_1MSPS/src/adcDrv2.c  -o ${OBJECTDIR}/_ext/75569845/adcDrv2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/75569845/adcDrv2.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/75569845/adcDrv2.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/75569845/configADC_DMA.o: ../CE401_ADC_1MSPS/src/configADC_DMA.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/75569845 
-	@${RM} ${OBJECTDIR}/_ext/75569845/configADC_DMA.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE401_ADC_1MSPS/src/configADC_DMA.c  -o ${OBJECTDIR}/_ext/75569845/configADC_DMA.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/75569845/configADC_DMA.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/75569845/configADC_DMA.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/75569845/traps.o: ../CE401_ADC_1MSPS/src/traps.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/75569845 
-	@${RM} ${OBJECTDIR}/_ext/75569845/traps.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE401_ADC_1MSPS/src/traps.c  -o ${OBJECTDIR}/_ext/75569845/traps.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/75569845/traps.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/75569845/traps.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o: ../CE018_FFT_DSPlib/src/inputsignal_square1khz.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
-	@${RM} ${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/inputsignal_square1khz.c  -o ${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/318502877/twiddleFactors.o: ../CE018_FFT_DSPlib/src/twiddleFactors.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
-	@${RM} ${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/twiddleFactors.c  -o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/318502877/FFTExample.o: ../CE018_FFT_DSPlib/src/FFTExample.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
-	@${RM} ${OBJECTDIR}/_ext/318502877/FFTExample.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/FFTExample.c  -o ${OBJECTDIR}/_ext/318502877/FFTExample.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/FFTExample.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/FFTExample.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/343710134/usb_device.o: ../Microchip/USB/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/343710134 
 	@${RM} ${OBJECTDIR}/_ext/343710134/usb_device.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_device.c  -o ${OBJECTDIR}/_ext/343710134/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_device.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_device.c  -o ${OBJECTDIR}/_ext/343710134/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_device.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/343710134/usb_device.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o: ../Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/131024517 
 	@${RM} ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  "../Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  "../Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o: ../Microchip/USB/usb_hal_pic24.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/343710134 
 	@${RM} ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/_ext/1472/main.o: ../main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1472 
-	@${RM} ${OBJECTDIR}/_ext/1472/main.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../main.c  -o ${OBJECTDIR}/_ext/1472/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/main.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/radc.o: radc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/radc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  radc.c  -o ${OBJECTDIR}/radc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/radc.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/radc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/rusb.o: rusb.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/rusb.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  rusb.c  -o ${OBJECTDIR}/rusb.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/rusb.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/rusb.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/usb_descriptors.o: ../usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/rfft.o: rfft.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/rfft.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  rfft.c  -o ${OBJECTDIR}/rfft.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/rfft.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/rfft.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/318502877/twiddleFactors.o: ../CE018_FFT_DSPlib/src/twiddleFactors.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
+	@${RM} ${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/twiddleFactors.c  -o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d"        -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
-${OBJECTDIR}/_ext/75569845/adcDrv2.o: ../CE401_ADC_1MSPS/src/adcDrv2.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/75569845 
-	@${RM} ${OBJECTDIR}/_ext/75569845/adcDrv2.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE401_ADC_1MSPS/src/adcDrv2.c  -o ${OBJECTDIR}/_ext/75569845/adcDrv2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/75569845/adcDrv2.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/75569845/adcDrv2.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/75569845/configADC_DMA.o: ../CE401_ADC_1MSPS/src/configADC_DMA.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/75569845 
-	@${RM} ${OBJECTDIR}/_ext/75569845/configADC_DMA.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE401_ADC_1MSPS/src/configADC_DMA.c  -o ${OBJECTDIR}/_ext/75569845/configADC_DMA.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/75569845/configADC_DMA.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/75569845/configADC_DMA.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/75569845/traps.o: ../CE401_ADC_1MSPS/src/traps.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/75569845 
-	@${RM} ${OBJECTDIR}/_ext/75569845/traps.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE401_ADC_1MSPS/src/traps.c  -o ${OBJECTDIR}/_ext/75569845/traps.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/75569845/traps.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/75569845/traps.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o: ../CE018_FFT_DSPlib/src/inputsignal_square1khz.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
-	@${RM} ${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/inputsignal_square1khz.c  -o ${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/inputsignal_square1khz.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/318502877/twiddleFactors.o: ../CE018_FFT_DSPlib/src/twiddleFactors.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
-	@${RM} ${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/twiddleFactors.c  -o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/318502877/FFTExample.o: ../CE018_FFT_DSPlib/src/FFTExample.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
-	@${RM} ${OBJECTDIR}/_ext/318502877/FFTExample.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/FFTExample.c  -o ${OBJECTDIR}/_ext/318502877/FFTExample.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/FFTExample.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/FFTExample.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/343710134/usb_device.o: ../Microchip/USB/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/343710134 
 	@${RM} ${OBJECTDIR}/_ext/343710134/usb_device.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_device.c  -o ${OBJECTDIR}/_ext/343710134/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_device.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_device.c  -o ${OBJECTDIR}/_ext/343710134/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_device.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/343710134/usb_device.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o: ../Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/131024517 
 	@${RM} ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  "../Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  "../Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o ${OBJECTDIR}/_ext/131024517/usb_function_cdc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/131024517/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o: ../Microchip/USB/usb_hal_pic24.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/343710134 
 	@${RM} ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/343710134/usb_hal_pic24.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/_ext/1472/main.o: ../main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1472 
-	@${RM} ${OBJECTDIR}/_ext/1472/main.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../main.c  -o ${OBJECTDIR}/_ext/1472/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/main.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/radc.o: radc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/radc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  radc.c  -o ${OBJECTDIR}/radc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/radc.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/radc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/rusb.o: rusb.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/rusb.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  rusb.c  -o ${OBJECTDIR}/rusb.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/rusb.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/rusb.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/usb_descriptors.o: ../usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"        -g -omf=elf -mlarge-code -mlarge-data -mlarge-scalar -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/rfft.o: rfft.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/rfft.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  rfft.c  -o ${OBJECTDIR}/rfft.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/rfft.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/rfft.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/_ext/318502877/twiddleFactors.o: ../CE018_FFT_DSPlib/src/twiddleFactors.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/318502877 
+	@${RM} ${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../CE018_FFT_DSPlib/src/twiddleFactors.c  -o ${OBJECTDIR}/_ext/318502877/twiddleFactors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d"        -g -omf=elf -mlarge-data -mconst-in-data -O0 -I"../Microchip/Include" -I"../" -I"../CE401_ADC_1MSPS/h" -I"../dsPIC33E/h" -I"../CE018_FFT_DSPlib/h" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/_ext/318502877/twiddleFactors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

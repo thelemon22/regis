@@ -58,7 +58,8 @@
 #include "adcDrv2.h"
 
 // User Defines
-#define FCY		40000000  			// User must calculate and enter FCY here
+//#define FCY		40000000  			// User must calculate and enter FCY here
+#define FCY		115200  			// User must calculate and enter FCY here
 #define Dly_Time (20E-6 * FCY)      // ADC Off-to-On delay
 
 
@@ -88,7 +89,8 @@ void initAdc1(void)
 		AD1CON1bits.ASAM   = 0;		// ADC Sample Control: Sampling begins immediately after conversion
 		AD1CON1bits.AD12B  = 0;		// 10-bit ADC operation
 
-		AD1CON2bits.CHPS  = 1;		// Converts CH0/CH1
+		//AD1CON2bits.CHPS  = 1;		// Converts CH0/CH1
+                AD1CON2bits.CHPS  = 0;		// Converts CH0/CH1
      
 		AD1CON3bits.ADRC=0;			// ADC Clock is derived from Systems Clock
 		AD1CON3bits.SAMC=2; 		// Auto Sample Time = 0*Tad		
@@ -181,13 +183,6 @@ void __attribute__((interrupt, auto_psv)) _DMA0Interrupt(void)
 
 		__builtin_btg((unsigned int *)&LATA, 6); // Toggle RA6		
         IFS0bits.DMA0IF = 0;				 	 //Clear the DMA0 Interrupt Flag
-}
-
-
-
-void ProcessADCSamples(__eds__ int * AdcBuffer)
-{
-	/* Do something with ADC Samples */
 }
 
 

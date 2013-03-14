@@ -462,6 +462,8 @@ static void USBStallHandler(void);
   ***************************************************************************/
 void USBDeviceInit(void)
 {
+    mInitAllLEDs();
+
     BYTE i;
 
     USBDisableInterrupts();

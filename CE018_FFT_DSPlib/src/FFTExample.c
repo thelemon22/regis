@@ -52,6 +52,7 @@
 #include <p33Exxxx.h>
 #include <dsp.h>
 #include "fft.h"
+#include "adcDrv2.h"
 
 /* Device configuration register macros for building the hex file */
 //_FOSC(CSW_FSCM_OFF & XT_PLL8);          /* XT with 8xPLL oscillator, Failsafe clock off */
@@ -61,7 +62,7 @@
 
 
 /* Extern definitions */
-extern fractcomplex sigCmpx[FFT_BLOCK_LENGTH] 		/* Typically, the input signal to an FFT  */
+fractcomplex sigCmpx[FFT_BLOCK_LENGTH] 		/* Typically, the input signal to an FFT  */
 __attribute__ ((far, 	/* routine is a complex array containing samples */
 aligned (FFT_BLOCK_LENGTH * 2 *2)));      		/* of an input signal. For this example, */
 							/* we will provide the input signal in an */
@@ -78,10 +79,12 @@ __attribute__ ((space(auto_psv), aligned (FFT_BLOCK_LENGTH*2)));
 int	peakFrequencyBin = 0;				/* Declare post-FFT variables to compute the */
 unsigned long peakFrequency = 0;			/* frequency of the largest spectral component */
 
-int FFTExample(void)
+
+void ProcessADCSamples(__eds__ int * AdcBuffer)
 {
+
 	int i = 0;
-	fractional *p_real = &sigCmpx[0].real ;
+	fractional *p_real = AdcBuffer;
 	fractcomplex *p_cmpx = &sigCmpx[0] ;
 
 
@@ -89,14 +92,14 @@ int FFTExample(void)
 	TwidFactorInit (LOG2_BLOCK_LENGTH, &twiddleFactors[0], 0);	/* We need to do this only once at start-up */
 #endif
 
-	for ( i = 0; i < FFT_BLOCK_LENGTH; i++ )/* The FFT function requires input data */
-	{					/* to be in the fractional fixed-point range [-0.5, +0.5]*/
-		*p_real = *p_real >>1 ;		/* So, we shift all data samples by 1 bit to the right. */
-		*p_real++;			/* Should you desire to optimize this process, perform */
-	}					/* data scaling when first obtaining the time samples */
+	//for ( i = 0; i < FFT_BLOCK_LENGTH; i++ )/* The FFT function requires input data */
+//	{					/* to be in the fractional fixed-point range [-0.5, +0.5]*/
+//		*p_real = *p_real >>1 ;		/* So, we shift all data samples by 1 bit to the right. */
+//		*p_realsigCmpxl++;			/* Should you desire to optimize this process, perform */
+//	}					/* data scaling when first obtaining the time samples */
 						/* Or within the BitReverseComplex function source code */
 
-	p_real = &sigCmpx[(FFT_BLOCK_LENGTH/2)-1].real ;	/* Set up pointers to convert real array */
+	p_real = AdcBuffer[(NUMSAMP)-1] ;	/* Set up pointers to convert real array */
 	p_cmpx = &sigCmpx[FFT_BLOCK_LENGTH-1] ; /* to a complex array. The input array initially has all */
 						/* the real input samples followed by a series of zeros */
 
@@ -122,10 +125,13 @@ int FFTExample(void)
 
 	/* Find the frequency Bin ( = index into the SigCmpx[] array) that has the largest energy*/
 	/* i.e., the largest spectral component */
-	VectorMax(FFT_BLOCK_LENGTH/2, &sigCmpx[0].real, &peakFrequencyBin);
+	//VectorMax(FFT_BLOCK_LENGTH/2, &sigCmpx[0].real, &peakFrequencyBin);
 
 	/* Compute the frequency (in Hz) of the largest spectral component */
-	peakFrequency = peakFrequencyBin*(SAMPLING_RATE/FFT_BLOCK_LENGTH);
+	//peakFrequency = peakFrequencyBin*(SAMPLING_RATE/FFT_BLOCK_LENGTH);
+
+
+        putrsUSBUSART((char*)&sigCmpx[0].real);
 
         while (1);	/* Place a breakpoint here and observe the watch window variables */
 }
