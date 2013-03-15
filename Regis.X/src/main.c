@@ -163,7 +163,7 @@ static void InitializeSystem(void)
     tris_self_power = INPUT_PIN;	// See HardwareProfile.h
     #endif
 
-    //USBDeviceInit();	//usb_device.c.  Initializes USB module SFRs and firmware
+    USBDeviceInit();	//usb_device.c.  Initializes USB module SFRs and firmware
     					//variables to known states.
 
     
@@ -196,9 +196,22 @@ int main(void) {
         
         RunFFT();
 
-        putrsUSBUSART((char*)&fftOut[0].real);
+
+        //Blink the LEDs according to the USB device status
+        //BlinkUSBStatus();
+        // User Application USB tasks
+        //if((USBDeviceState < CONFIGURED_STATE)||(USBSuspendControl==1)) continue;
+
+
+        if(USBUSARTIsTxTrfReady())
+        {
+            putUSBUSART(&fftOut[0], FFT_BLOCK_LENGTH-1);
+        }
+
+        CDCTxService();
         
-        ProcessIO();
+        
+        //ProcessIO();
     }
     return (EXIT_SUCCESS);
 }

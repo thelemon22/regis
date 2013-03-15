@@ -3,9 +3,9 @@
   <projectmakefile>Makefile</projectmakefile>
   <defaultConf>0</defaultConf>
   <confs>
-    <conf name="default" type="2">
+    <conf name="dsPIC33E_DSP_development_board" type="2">
       <platformToolSN>:=MPLABCommUSB:=04D8:=8107:=0002:=Microchip Technology Incorporated:=dsPIC33E USB SK:=BUR112810962:=x:=en</platformToolSN>
-      <languageToolchainDir>C:\Program Files (x86)\Microchip\xc16\v1.11\bin</languageToolchainDir>
+      <languageToolchainDir>/opt/microchip/xc16/v1.11/bin</languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
         <placeholder2>place holder 2</placeholder2>

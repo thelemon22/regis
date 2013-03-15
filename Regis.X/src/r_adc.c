@@ -14,8 +14,8 @@
 #include "r_adc.h"
 
 // User Defines
-//#define FCY		40000000  			// User must calculate and enter FCY here
-#define FCY		115200  			// User must calculate and enter FCY here
+#define FCY		60000000  			// User must calculate and enter FCY here
+//#define FCY		115200  			// User must calculate and enter FCY here
 #define Dly_Time (20E-6 * FCY)      // ADC Off-to-On delay
 
 
@@ -88,22 +88,22 @@ void initAdc1(void)
 
         // Clock and Conversion Counter
         AD1CON3bits.ADRC=0;		// ADC Clock is derived from Systems Clock
-        AD1CON3bits.SAMC=2; 		// Auto Sample Time = 0*Tad
+        AD1CON3bits.SAMC=1; 		// Auto Sample Time = 0*Tad
         //AD1CON3bits.SAMC=0; 		// Auto Sample Time = 0*Tad
-        AD1CON3bits.ADCS=2;             // ADC Conversion Clock Tad=Tcy*(ADCS+1)= (1/40M)*3 = 75ns (13.3Mhz)
+        AD1CON3bits.ADCS=255;             // ADC Conversion Clock Tad=Tcy*(ADCS+1)= (1/40M)*3 = 75ns (13.3Mhz)
                                         // ADC Conversion Time for 10-bit Tc=12*Tab =  900ns (1.1MHz)
         // A/D DMA Setup
         AD1CON4bits.ADDMAEN  = 1;	// The ADC DMA enable bit (Converts in ADC1BUF0)
         AD1CON1bits.ADDMABM = 1; 	// DMA buffers are built in conversion order mode
-        AD1CON2bits.SMPI    = 0;	// SMPI must be 0 - This determines how often the DMA pointer is incremented.
+        AD1CON2bits.SMPI    = 5;	// SMPI must be 0 - This determines how often the DMA pointer is incremented.
                                         //                  0 means every sample, increment DMA ptr.
-                                        //                  We could increase this to optimize if necessary..
+                                        //                  We could increase this to optimize if necessary.. (every 6th sample)
         
         //AD1CHS0/AD1CHS123: A/D Input Select Register
 
         // Input Pin Selection
         AD1CHS0bits.CH0SA=0;		// MUXA +ve input selection (AIN0) for CH0
-        AD1CHS0bits.CH0NA=0;		// MUXA -ve input selection (Vref-) for CH0
+        AD1CHS0bits.CH0NA=1;		// MUXA -ve input selection (Vref-) for CH0
 
         //AD1CHS123bits.CH123SA=0;	// MUXA +ve input selection (AIN0) for CH1
         //AD1CHS123bits.CH123NA=0;	// MUXA -ve input selection (Vref-) for CH1
@@ -113,10 +113,19 @@ void initAdc1(void)
 
         AD1CON1bits.ADON = 1;		// Turn on the A/D converter
 
-        Dly_Time;			// Delay for 20uS to allow ADC to settle (25nS * 0x320 = 20uS)
+        //delay(20);			// Delay for 20uS to allow ADC to settle (25nS * 0x320 = 20uS)
 
         AD1CON1bits.ASAM = 1;		// Sampling begins immediately after last conversion. SAMP bit is auto-set
 
+}
+
+void delay(unsigned int delay)
+{
+    int i;
+    for (i = 0; i < delay*0.01*FCY ; i++)
+    {
+    __asm__ volatile ("nop");
+    }
 }
 
 // DMA0 configuration

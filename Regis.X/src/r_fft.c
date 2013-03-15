@@ -34,18 +34,18 @@ int fftInOffset = 0;
 void RunFFT(){
 	int i = 0;
 
-        for (i = 0; i < FFT_BLOCK_LENGTH; i++){
-            fftIn[i] = (fractional)0;
-        }
+        //for (i = 0; i < FFT_BLOCK_LENGTH; i++){
+        //    fftIn[i] = (fractional)0;
+        //}
 
 	fractional *p_real = &fftIn[0];
 	fractcomplex *p_cmpx = &fftOut[0] ;
 
-	//for ( i = 0; i < FFT_BLOCK_LENGTH; i++ )/* The FFT function requires input data */
-	//{					/* to be in the fractional fixed-point range [-0.5, +0.5]*/
-	//	*p_real = *p_real >>1 ;		/* So, we shift all data samples by 1 bit to the right. */
-//		*p_realsigCmpxl++;			/* Should you desire to optimize this process, perform */
-	//}					/* data scaling when first obtaining the time samples */
+	for ( i = 0; i < FFT_BLOCK_LENGTH; i++ )/* The FFT function requires input data */
+	{					/* to be in the fractional fixed-point range [-0.5, +0.5]*/
+		*p_real = *p_real >>1 ;		/* So, we shift all data samples by 1 bit to the right. */
+				/* Should you desire to optimize this process, perform */
+	}					/* data scaling when first obtaining the time samples */
 						/* Or within the BitReverseComplex function source code */
 
 	p_real = &fftIn[fftInOffset + (FFT_BLOCK_LENGTH)-1] ;	/* Set up pointers to convert real array */
@@ -76,6 +76,6 @@ void RunFFT(){
 	BitReverseComplex (LOG2_BLOCK_LENGTH, &fftOut[0]);
         
 	/* Compute the square magnitude of the complex FFT output array so we have a Real output vetor */
-	SquareMagnitudeCplx(FFT_BLOCK_LENGTH, &fftOut[0], &fftOut[0].real);
+	//SquareMagnitudeCplx(FFT_BLOCK_LENGTH, &fftOut[0], &fftOut[0].real);
 
 }

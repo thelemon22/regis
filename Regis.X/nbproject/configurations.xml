@@ -34,13 +34,12 @@
         <logicalFolder name="CDC Device Driver"
                        displayName="CDC Device Driver"
                        projectFiles="true">
-          <itemPath>C:/git/hw/regis/Microchip/USB/CDC Device Driver/usb_function_cdc.c</itemPath>
+          <itemPath>../Microchip/USB/CDC Device Driver/usb_function_cdc.c</itemPath>
         </logicalFolder>
-        <itemPath>C:/git/hw/regis/Microchip/USB/usb_device.c</itemPath>
-        <itemPath>C:/git/hw/regis/Microchip/USB/usb_hal_dspic33e.c</itemPath>
         <itemPath>../demo_projects/usb_descriptors.c</itemPath>
+        <itemPath>../Microchip/USB/usb_device.c</itemPath>
+        <itemPath>../Microchip/USB/usb_hal_dspic33e.c</itemPath>
       </logicalFolder>
-      <itemPath>fft.s</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -57,7 +56,7 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="default" type="2">
+    <conf name="dsPIC33E_DSP_development_board" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>dsPIC33EP512MU810</targetDevice>
@@ -66,7 +65,7 @@
         <platformTool>PKOBSKDEPlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.11</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
         <linkerTool>
@@ -103,7 +102,7 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
-                  value="./include;../MicroChip/Include;../MicroChip/USB"/>
+                  value="./include;../Microchip/Include;../Microchip/USB"/>
         <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>

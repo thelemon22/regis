@@ -4,10 +4,10 @@
 # NOCDDL
 #
 CND_BASEDIR=`pwd`
-# default configuration
-CND_ARTIFACT_DIR_default=dist/default/production
-CND_ARTIFACT_NAME_default=Regis.X.production.hex
-CND_ARTIFACT_PATH_default=dist/default/production/Regis.X.production.hex
-CND_PACKAGE_DIR_default=${CND_DISTDIR}/default/package
-CND_PACKAGE_NAME_default=regis.x.tar
-CND_PACKAGE_PATH_default=${CND_DISTDIR}/default/package/regis.x.tar
+# dsPIC33E_DSP_development_board configuration
+CND_ARTIFACT_DIR_dsPIC33E_DSP_development_board=dist/dsPIC33E_DSP_development_board/production
+CND_ARTIFACT_NAME_dsPIC33E_DSP_development_board=Regis.X.production.hex
+CND_ARTIFACT_PATH_dsPIC33E_DSP_development_board=dist/dsPIC33E_DSP_development_board/production/Regis.X.production.hex
+CND_PACKAGE_DIR_dsPIC33E_DSP_development_board=${CND_DISTDIR}/dsPIC33E_DSP_development_board/package
+CND_PACKAGE_NAME_dsPIC33E_DSP_development_board=regis.x.tar
+CND_PACKAGE_PATH_dsPIC33E_DSP_development_board=${CND_DISTDIR}/dsPIC33E_DSP_development_board/package/regis.x.tar
