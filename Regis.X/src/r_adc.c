@@ -67,7 +67,9 @@ void initADCDMA (void)
 //at 1.1MHz throughput rate. ADC clock is configured at 13.3Mhz or Tad=75ns
 void initAdc1(void)
 {
-        AD1CSSH=0x1000; //select AN28 for analog input
+        //AD1CSSH=0x1000; //select AN28 for analog input
+        ANSELB = 0x0001; // Ensure AN0 is analog
+
 
         //Sampling and Conversion
         AD1CON1bits.FORM   = 3;		// Data Output Format: Signed Fraction (Q15 format) on range [-1, +0.999]
@@ -79,6 +81,7 @@ void initAdc1(void)
 
         // Channel + Voltage
         //AD1CON2bits.CHPS  = 1;        // Use CH0 and CH1
+
         AD1CON2bits.CHPS  = 0;		// Only use CH0 (mono)
         AD1CON2bits.VCFG = 0;           // Use internal voltage reference values
 

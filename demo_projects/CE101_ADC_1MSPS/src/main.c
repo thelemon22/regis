@@ -54,6 +54,8 @@
 
 #if defined(__dsPIC33F__)
 #include "p33Fxxxx.h"
+#elif defined(__dsPIC33E__)
+#include "p33exxxx.h"
 #elif defined(__PIC24H__)
 #include "p24Hxxxx.h"
 #endif
@@ -66,11 +68,11 @@
 //timers etc. The macros are defined within the device
 //header files. The configuration fuse registers reside in Flash memory.
 
-_FGS(GWRP_OFF & GSS_OFF & GCP_OFF);
-_FOSCSEL(FNOSC_FRC & IESO_OFF);
-_FOSC(POSCMD_XT & OSCIOFNC_OFF & FCKSM_CSECMD);
-_FWDT(PLLKEN_ON & FWDTEN_OFF);
-_FICD(JTAGEN_OFF & ICS_PGD1);
+//_FGS(GWRP_OFF & GSS_OFF & GCP_OFF);
+//_FOSCSEL(FNOSC_FRC & IESO_OFF);
+//_FOSC(POSCMD_XT & OSCIOFNC_OFF & FCKSM_CSECMD);
+//_FWDT(PLLKEN_ON & FWDTEN_OFF);
+//_FICD(JTAGEN_OFF & ICS_PGD1);
 
 int main (void)
 {
@@ -78,13 +80,13 @@ int main (void)
 // Configure Oscillator to operate the device at 40Mhz
 // Fosc= Fin*M/(N1*N2), Fcy=Fosc/2
 // Fosc= 8M*40/(2*2)=80Mhz for 8M input clock
-	PLLFBD=38;					// M=40
-	CLKDIVbits.PLLPOST=0;		// N1=2
-	CLKDIVbits.PLLPRE=0;		// N2=2
-	OSCTUN=0;					// Tune FRC oscillator, if FRC is used
+//	PLLFBD=38;					// M=40
+//	CLKDIVbits.PLLPOST=0;		// N1=2
+//	CLKDIVbits.PLLPRE=0;		// N2=2
+//	OSCTUN=0;					// Tune FRC oscillator, if FRC is used
 
 // Disable Watch Dog Timer
-	RCONbits.SWDTEN=0;
+//	RCONbits.SWDTEN=0;
 
 // clock switching to incorporate PLL
 	__builtin_write_OSCCONH(0x03);		// Initiate Clock Switch to Primary Oscillator with PLL (NOSC=0x03)										

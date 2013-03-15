@@ -48,6 +48,8 @@
 
 #if defined(__dsPIC33F__)
 #include "p33Fxxxx.h"
+#elif defined(__dsPIC33E__)
+#include "p33exxxx.h"
 #elif defined(__PIC24H__)
 #include "p24Hxxxx.h"
 #endif
